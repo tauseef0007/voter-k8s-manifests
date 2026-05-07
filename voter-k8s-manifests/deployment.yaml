@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: voterapp
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: voterapp
+
+  template:
+    metadata:
+      labels:
+        app: voterapp
+
+    spec:
+      containers:
+      - name: voterapp
+
+        image: tauseef0007/voterapp:v1
+
+        ports:
+        - containerPort: 3000
