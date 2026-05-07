@@ -11,8 +11,6 @@ jobs:
 
     steps:
 
-    
-
     - name: Checkout App Repo
       uses: actions/checkout@v4
 
@@ -35,23 +33,27 @@ jobs:
 
     - name: Clone Manifest Repo
       run: |
-       git clone https://x-access-token:${{ secrets.GH_PAT }}@github.com/tauseef0007/voter-k8s-manifests.git manifests
+        git clone https://x-access-token:${{ secrets.GH_PAT }}@github.com/tauseef0007/voter-k8s-manifests.git manifests
 
-    - name: Update Deployment Image
+    - name: Update Deployment YAML
       run: |
-        cd voter-k8s-manifests
+        cd manifests
+
         sed -i 's|image:.*|image: tauseef0007/voterapp:${{ github.sha }}|' deployment.yaml
 
     - name: Commit Changes
       run: |
-        cd voter-k8s-manifests
+        cd manifests
+
         git config user.name "github-actions"
         git config user.email "actions@github.com"
 
         git add .
-        git commit -m "Updated image tag"
+
+        git commit -m "Updated image tag" || echo "No changes"
 
     - name: Push Changes
       run: |
-        cd voter-k8s-manifests
+        cd manifests
+
         git push
