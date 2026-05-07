@@ -11,6 +11,9 @@ jobs:
 
     steps:
 
+    - name: Remove Old Manifest Repo
+      run: rm -rf voter-k8s-manifests
+
     - name: Checkout App Repo
       uses: actions/checkout@v4
 
