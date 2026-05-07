@@ -20,7 +20,7 @@ spec:
       containers:
       - name: voterapp
 
-        image: tauseef0007/voterapp:v1
+        image: tauseef0007/voterapp:latest
 
         ports:
         - containerPort: 3000
