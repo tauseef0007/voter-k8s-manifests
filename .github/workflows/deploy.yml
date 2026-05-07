@@ -11,8 +11,7 @@ jobs:
 
     steps:
 
-    - name: Remove Old Manifest Repo
-      run: rm -rf voter-k8s-manifests
+    
 
     - name: Checkout App Repo
       uses: actions/checkout@v4
@@ -31,9 +30,12 @@ jobs:
       run: |
         docker push tauseef0007/voterapp:${{ github.sha }}
 
+    - name: Remove Existing Folder
+      run: rm -rf manifests
+
     - name: Clone Manifest Repo
       run: |
-        git clone https://x-access-token:${{ secrets.GH_PAT }}@github.com/tauseef0007/voter-k8s-manifests.git
+       git clone https://x-access-token:${{ secrets.GH_PAT }}@github.com/tauseef0007/voter-k8s-manifests.git manifests
 
     - name: Update Deployment Image
       run: |
